@@ -1,0 +1,29 @@
+---
+
+- name: Install Microshift
+  hosts: pma
+  remote_user: root
+
+  vars_prompt:
+    
+    - name: rhel_user
+      prompt: What is the subscription user?
+      private: false
+    - name: rhel_pass
+      prompt: What is the subscription account password?
+      private: true
+
+  tasks:
+  
+  - name: Register host with subscription manager
+    community.general.redhat_subscription:
+      state: present
+      username: {{ rhel_user }}
+      password: {{ rhel_pass }}
+      auto_attach: true
+
+  - name: Enable MicroShift repos
+    community.general.rhsm_repository:
+      name: rhocp-4.12-for-rhel-8-{{ uname }}-rpms \
+      
+      
