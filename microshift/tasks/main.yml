@@ -1,6 +1,3 @@
 ---
 # tasks file for microshift
-- hosts: all
-  tasks:
-    - import_tasks:
-      file: microshift-install.yml
+- include_tasks: microshift-install.yml
