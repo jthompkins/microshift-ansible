@@ -11,4 +11,33 @@
   community.general.rhsm_repository:
     name: "rhocp-4.12-for-rhel-8-{{ uname }}-rpms"
       
-      
+- name: Install MicroShift with DNF
+  ansible.builtin.dnf:
+  name: microshift
+  state: latest
+
+- name: Copy Pull Secret
+  copy:
+    src: {{ pull_secret_location }}
+    dest: /etc/crio/openshift-pull-secret
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Add firewall source
+  ansible.posix.firewalld:
+    zone: trusted
+    source: 10.42.0.0/16
+    permanent: true
+
+- name: Add firewall source 2
+  ansible.posix.firewalld:
+    zone: trusted
+    source: 169.254.169.1
+    permanent: true
+
+- name: Enable and start Microshift
+  ansible.builtin.systemd:
+    name: microshift
+    state: started
+    enabled: true
