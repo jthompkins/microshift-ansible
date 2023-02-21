@@ -65,3 +65,21 @@
     name: "/home/admin/{{oc_client}}"
     state: present
 
+- name: Make .kube dir
+  ansible.builtin.file:
+  path: /home/admin/.kube/
+  state: directory
+  mode: '0755'
+
+- name: Copy kubeconfig file
+  copy:
+    src: "/var/lib/microshift/resources/kubeadmin/kubeconfig"
+    dest: /home/admin/.kube/config
+    owner: admin
+    group: admin
+    mode: '0700'
+
+- name: Verify MicroShift is running
+  ansible.builtin.shell:
+    cmd: oc get all -A
+
