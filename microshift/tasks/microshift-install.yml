@@ -55,7 +55,7 @@
 - name: Copy OC client
   copy:
     src: "{{ oc_client_location }}"
-    dest: /home/admin/
+    dest: "/home/admin/{{oc_client}}"
     owner: admin
     group: admin
     mode: '0755'
