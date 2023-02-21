@@ -32,12 +32,19 @@
     zone: trusted
     source: 10.42.0.0/16
     permanent: true
+    state: enabled
 
 - name: Add firewall source 2
   ansible.posix.firewalld:
     zone: trusted
     source: 169.254.169.1
     permanent: true
+    state: enabled
+
+- name: Reload firewalld
+  systemd:
+    name: firewalld
+    state: reloaded
 
 - name: Enable and start Microshift
   ansible.builtin.systemd:
