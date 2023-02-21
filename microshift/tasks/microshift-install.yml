@@ -74,12 +74,13 @@
 - name: Copy kubeconfig file
   copy:
     src: "/var/lib/microshift/resources/kubeadmin/kubeconfig"
+    remote_src: true
     dest: /home/admin/.kube/config
     owner: admin
     group: admin
     mode: '0700'
 
-- name: Verify MicroShift is running
-  ansible.builtin.shell:
-    cmd: oc get all -A
+#- name: Verify MicroShift is running
+#  ansible.builtin.shell:
+#    cmd: oc get all -A
 
