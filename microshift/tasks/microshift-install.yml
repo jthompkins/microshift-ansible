@@ -67,9 +67,9 @@
 
 - name: Make .kube dir
   ansible.builtin.file:
-  path: /home/admin/.kube/
-  state: directory
-  mode: '0755'
+    path: /home/admin/.kube/
+    state: directory
+    mode: '0755'
 
 - name: Copy kubeconfig file
   copy:
