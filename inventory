@@ -1,2 +1,4 @@
 [pma]
-localhost
+#localhost
+172.30.141.168
+172.30.142.136

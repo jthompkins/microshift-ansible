@@ -1,20 +1,23 @@
 ---
 
-#- name: Register host with subscription manager
-#  redhat_subscription:
-#    state: present
-#    username: "{{ rhel_user }}"
-#    password: "{{ rhel_pass }}"
-#    auto_attach: true
+- name: Register host with subscription manager
+  redhat_subscription:
+    state: present
+    username: "{{ rhel_user }}"
+    password: "{{ rhel_pass }}"
+    auto_attach: true
 
 - name: Enable MicroShift repos
   rhsm_repository:
-    name: "rhocp-4.12-for-rhel-8-{{ uname }}-rpms"
+    name: 
+      - "rhocp-4.12-for-rhel-8-{{ uname }}-rpms"
+      - "fast-datapath-for-rhel-8-{{ uname }}-rpms"
       
 - name: Install MicroShift with DNF
   ansible.builtin.dnf:
     name: microshift
     state: latest
+    disable_gpg_check: true
 
 - name: Copy Pull Secret
   copy:

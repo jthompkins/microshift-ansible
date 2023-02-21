@@ -1,13 +1,15 @@
 ---
 - hosts: pma
-#  vars_prompt:
-#
-#    - name: rhel_user
-#      prompt: What is the subscription user?
-#      private: false
+  user: admin
+  become: true
+  vars_prompt:
 
-#    - name: rhel_pass
-#      prompt: What is the subscription account password?
-#      private: true
+    - name: rhel_user
+      prompt: What is the subscription user?
+      private: false
+
+    - name: rhel_pass
+      prompt: What is the subscription account password?
+      private: true
   roles:
     - microshift
